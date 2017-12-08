@@ -1,0 +1,22 @@
+{
+  "name": "oscautomat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarloCattano/oscAutomataPD.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CarloCattano/oscAutomataPD/issues"
+  },
+  "homepage": "https://github.com/CarloCattano/oscAutomataPD#readme",
+  "dependencies": {
+    "osc": "^2.2.0"
+  }
+}
