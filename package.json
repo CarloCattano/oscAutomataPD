@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/CarloCattano/oscAutomataPD#readme",
   "dependencies": {
+    "node-osc": "^2.1.0",
     "osc": "^2.2.0"
   }
 }

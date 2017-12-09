@@ -1,67 +1,26 @@
-var osc = require("osc"),
-    flock = require("flocking"),
-    example = require("../chrome-app/js/example-synth.js");
+var express = require('express');  
+var app = express();  
+var server = require('http').createServer(app);  
+var io = require('socket.io')(server);
 
-/*******************
- * OSC Over Serial *
- *******************/
+server.listen(8000);
 
-// Instantiate a new OSC Serial Port.
-var serialPort = new osc.SerialPort({
-    devicePath: process.argv[2] || "/dev/cu.usbmodem22131"
+app.use(express.static(__dirname + '/node_modules'));  
+app.use(express.static(__dirname + '/public')); 
+app.get('/', function(req, res,next) {  
+    res.sendFile(__dirname + '/index.html');
+});
+app.use(express.static('public'));
+////////////////////////////////////////////////////////
+io.on('connection', function (socket){
+	console.log("user "+socket.id + " connected");
+	socket.on('Sosc1',function(data){
+		console.log("/Sosc1 "+data);
+	});
+	socket.on('Sosc2',function(data){
+		console.log("/Sosc2 "+data);
+		
+	});
+	
 });
 
-// Listen for the message event and map the OSC message to the synth.
-serialPort.on("message", function (oscMessage) {
-    example.mapOSCToSynth(oscMessage, example.synth, example.synthValueMap);
-});
-
-// Open the port.
-serialPort.open();
-
-
-/****************
- * OSC Over UDP *
- ****************/
-
-var getIPAddresses = function () {
-    var os = require("os"),
-        interfaces = os.networkInterfaces(),
-        ipAddresses = [];
-
-    for (var deviceName in interfaces) {
-        var addresses = interfaces[deviceName];
-        for (var i = 0; i < addresses.length; i++) {
-            var addressInfo = addresses[i];
-            if (addressInfo.family === "IPv4" && !addressInfo.internal) {
-                ipAddresses.push(addressInfo.address);
-            }
-        }
-    }
-
-    return ipAddresses;
-};
-
-var udpPort = new osc.UDPPort({
-    localAddress: "138.168.0.6",
-    localPort: 57121
-});
-
-udpPort.on("ready", function () {
-    var ipAddresses = getIPAddresses();
-
-    console.log("Listening for OSC over UDP.");
-    ipAddresses.forEach(function (address) {
-        console.log(" Host:", address + ", Port:", udpPort.options.localPort);
-    });
-});
-
-udpPort.on("message", function (oscMessage) {
-    example.mapOSCToSynth(oscMessage, example.synth, example.synthValueMap);
-});
-
-udpPort.on("error", function (err) {
-    console.log(err);
-});
-
-udpPort.open();
