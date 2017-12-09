@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>PD Web Panel</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/nexusui/dist/NexusUI.js"></script>
+</head>
+<body>
+<div id="slider1" style="width:200px;height:30px"></div>
+<div id="slider2" style="width:200px;height:30px"></div>
+<script>
+ const socket = io('http://localhost:8000');
+
+var slider1 = new Nexus.Slider('#slider1',{
+  min: 0.0,
+  max: 1.0,
+  step: 0.01,
+  mode: 'absolute'
+});
+var slider2 = new Nexus.Slider('#slider2',{
+  min: 0.0,
+  max: 1.0,
+  step: 0.01,
+  mode: 'absolute'
+});
+
+slider1.on('change',function(v) {
+  // do something with v!
+  socket.emit('Sosc1', v);
+});
+slider2.on('change',function(v) {
+  // do something with v!
+  socket.emit('Sosc2', v);
+});
+
+</script>
+</body>
+</html>
