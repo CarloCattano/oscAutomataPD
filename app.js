@@ -19,7 +19,7 @@ app.use(express.static('public'));
 	
 // OSC
 var udp = dgram.createSocket('udp4', function(msg, rinfo) {
-	console.log(msg, rinfo);
+	console.log("msg : " + msg +"Remote : " + rinfo);
 });
 
 
@@ -28,21 +28,52 @@ var udp = dgram.createSocket('udp4', function(msg, rinfo) {
 io.on('connection', function (socket){
 console.log("user "+socket.id + " connected");
 	
-socket.on('Sosc1',function(data){
-		console.log("/Sosc1 "+data);
-			var x = osc.toBuffer({
+socket.on('kickVol',function(data){
+			var kickVol = osc.toBuffer({
 			oscType: 'message',
-				address: '/love',
+				address: '/kick/vol',
 				args: [{
 					type: 'float',
 					value: data
 								}]
 			});
-		udp.send(x, 0 , x.length, 3333, "localhost");
+		udp.send(kickVol, 0 , kickVol.length, 3333, "localhost");
 		
 	});
-	socket.on('Sosc2',function(data){
-		console.log("/Sosc2 "+data);
+	socket.on('hatsVol',function(data){
+		var hatsVol = osc.toBuffer({
+			oscType: 'message',
+				address: '/hats/vol',
+				args: [{
+					type: 'float',
+					value: data
+								}]
+			});
+		udp.send(hatsVol, 0 , hatsVol.length, 3333, "localhost");
+	});
+	socket.on('seqVol',function(data){
+		var seqVol = osc.toBuffer({
+			oscType: 'message',
+				address: '/seq/vol',
+				args: [{
+					type: 'float',
+					value: data
+								}]
+			});
+		udp.send(seqVol, 0 , seqVol.length, 3333, "localhost");
+	});
+	socket.on('micVol',function(data){
+		var micVol = osc.toBuffer({
+			oscType: 'message',
+				address: '/mic/vol',
+				args: [{
+					type: 'float',
+					value: data
+								}]
+			});
+		udp.send(micVol, 0 , micVol.length, 3333, "localhost");
+	});
+	socket.on('seqNotes',function(data){
 		
 	});
 	

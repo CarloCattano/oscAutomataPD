@@ -7,33 +7,72 @@
 	<script src="/nexusui/dist/NexusUI.js"></script>
 </head>
 <body>
+<p>Hats Volume</p>
 <div id="slider1" style="width:200px;height:30px"></div>
+<p>Kick Volume</p>
 <div id="slider2" style="width:200px;height:30px"></div>
+<p>Sequencer Volume</p>
+<div id="slider3" style="width:200px;height:30px"></div>
+<p>Mic Volume</p>
+<div id="slider4" style="width:200px;height:30px"></div>
+<p>Seq Notes<p>
+<div id="multiS1" style="width:200px;height:30px"></div>
 <script>
  const socket = io('http://localhost:8000');
 
-var slider1 = new Nexus.Slider('#slider1',{
+var hatsVol = new Nexus.Slider('#slider1',{
   min: 0.0,
   max: 1.0,
   step: 0.01,
   mode: 'absolute'
 });
-var slider2 = new Nexus.Slider('#slider2',{
+var kickVol = new Nexus.Slider('#slider2',{
   min: 0.0,
   max: 1.0,
   step: 0.01,
   mode: 'absolute'
 });
-
-slider1.on('change',function(v) {
-  // do something with v!
-  socket.emit('Sosc1', v);
+var seqVol = new Nexus.Slider('#slider3',{
+  min: 0.0,
+  max: 1.0,
+  step: 0.01,
+  mode: 'absolute'
 });
-slider2.on('change',function(v) {
-  // do something with v!
-  socket.emit('Sosc2', v);
+var micVol = new Nexus.Slider('#slider4',{
+  min: 0.0,
+  max: 1.0,
+  step: 0.01,
+  mode: 'absolute'
 });
+var multislider = new Nexus.Multislider('#multiS1',{
+ 'size': [200,100],
+ 'numberOfSliders': 8,
+ 'min': 0,
+ 'max': 1,
+ 'step': 0
+})
 
+
+hatsVol.on('change',function(v) {
+  // do something with v!
+  socket.emit('hatsVol', v);
+});
+kickVol.on('change',function(v) {
+  // do something with v!
+  socket.emit('kickVol', v);
+});
+seqVol.on('change',function(v) {
+  // do something with v!
+  socket.emit('seqVol', v);
+});
+micVol.on('change',function(v) {
+  // do something with v!
+  socket.emit('micVol', v);
+});
+multislider.on('change',function(v) {
+  console.log(v);
+  socket.emit('seqNotes', v.index +" " +v.value);
+});
 </script>
 </body>
 </html>
