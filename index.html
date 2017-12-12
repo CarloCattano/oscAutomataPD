@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
+<head >
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>PD Web Panel</title>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/nexusui/dist/NexusUI.js"></script>
+	
+	 <body style="font-family:verdana;">
+	  <div id="myRack">
+       <table style="color:Yellow;">
+	  
+         <tr>
+                <td>Hats Volume<div id="slider1" style="width:200px;height:30px"></div></td>
+                <td>Kick Volume<div id="slider2" style="width:200px;height:30px"></div></td>
+         </tr>
+		 <tr>
+				<td>Sequencer Volume<div id="slider3" style="width:200px;height:30px"></div></td>
+				<td>Mic Volume<div id="slider4" style="width:200px;height:30px"></div></td>
+		 </tr>
+		 <tr>
+				<td>Seq Notes<div id="multiS1" style="width:400px;height:50px"></div></td>
+				<td> Gate<div id="seqGate" style="width:200px;height:30px"></div></td>
+		 </tr>
+		 <tr>
+				<td>SeqFLT<div id="seqFLT" style="width:200px;height:30px"></div></td>
+		 </tr>
+		 
+       </table>
+	   </div>
+    </body>
 </head>
+
 <body>
-<p>Hats Volume</p>
-<div id="slider1" style="width:200px;height:30px"></div>
-<p>Kick Volume</p>
-<div id="slider2" style="width:200px;height:30px"></div>
-<p>Sequencer Volume</p>
-<div id="slider3" style="width:200px;height:30px"></div>
-<p>Mic Volume</p>
-<div id="slider4" style="width:200px;height:30px"></div>
-<p>Seq Notes<p>
-<div id="multiS1" style="width:200px;height:30px"></div>
+
 <script>
- const socket = io('http://localhost:8000');
+ const socket = io('http://192.168.0.4:8000');
+ var myRack = new Nexus.Rack("#myRack");
 
 var hatsVol = new Nexus.Slider('#slider1',{
   min: 0.0,
@@ -48,31 +65,82 @@ var multislider = new Nexus.Multislider('#multiS1',{
  'size': [200,100],
  'numberOfSliders': 8,
  'min': 0,
- 'max': 1,
- 'step': 0
-})
+ 'max': 1.0,
+ 'step': 0.02
+});
+
+var seqGate = new Nexus.Button('#seqGate',{
+  'size': [40,40],
+  'mode': 'toggle',
+  'state': false
+});
+var seqFLT = new Nexus.Slider('#seqFLT',{
+  min: 0.0,
+  max: 1.0,
+  step: 0.001,
+  mode: 'absolute'
+});
 
 
 hatsVol.on('change',function(v) {
   // do something with v!
   socket.emit('hatsVol', v);
 });
+
 kickVol.on('change',function(v) {
-  // do something with v!
   socket.emit('kickVol', v);
 });
+
 seqVol.on('change',function(v) {
-  // do something with v!
   socket.emit('seqVol', v);
 });
+
 micVol.on('change',function(v) {
-  // do something with v!
   socket.emit('micVol', v);
 });
+
 multislider.on('change',function(v) {
-  console.log(v);
-  socket.emit('seqNotes', v.index +" " +v.value);
+  socket.emit('seqNotes', v);
 });
+
+seqFLT.on('change',function(v) {
+  socket.emit('seqFLT', v);
+});
+
+seqGate.on('change',function(v) {
+  if(v ==true){
+  socket.emit('seqGate', 1);
+  }else {
+  socket.emit('seqGate', 0);
+  }
+});
+document.body.style.backgroundColor = "#000"
+
+function colorSetup(){
+
+hatsVol.colorize("accent","#ff0");
+hatsVol.colorize("fill","#444");
+
+kickVol.colorize("accent","#ff0");
+kickVol.colorize("fill","#444");
+
+seqVol.colorize("accent","#ff0");
+seqVol.colorize("fill","#444");
+
+micVol.colorize("accent","#ff0");
+micVol.colorize("fill","#444");
+
+multislider.colorize("accent","#ff0");
+multislider.colorize("fill","#444");
+
+seqFLT.colorize("accent","#ff0");
+seqFLT.colorize("fill","#444");
+
+seqGate.colorize("accent","#ff0");
+seqGate.colorize("fill","#444");
+}
+
+colorSetup();
 </script>
 </body>
 </html>
