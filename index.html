@@ -118,6 +118,16 @@ document.body.style.backgroundColor = "#000"
 
 function colorSetup(){
 
+  var elements = [
+       hatsVol, kickVol, seqVol, micVol, multislider, seqFLT, seqGate
+  ];
+  
+  elements.forEach(function (item) {
+	    item.colorize("accent","#ff0");
+		item.colorize("fill","#444");
+
+	});
+ /*
 hatsVol.colorize("accent","#ff0");
 hatsVol.colorize("fill","#444");
 
@@ -138,6 +148,7 @@ seqFLT.colorize("fill","#444");
 
 seqGate.colorize("accent","#ff0");
 seqGate.colorize("fill","#444");
+*/
 }
 
 colorSetup();

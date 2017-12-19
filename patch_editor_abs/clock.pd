@@ -1,11 +1,11 @@
-#N canvas 0 22 1026 506 10;
+#N canvas 154 81 1026 506 10;
 #X obj 222 145 tgl 15 1 \$0-clock-on/off-s \$0-clock-on/off-r ON/OFF
-17 7 0 10 -262144 -1 -1 0 1;
-#X obj 409 211 metro 100;
+17 7 0 10 -262144 -1 -1 1 1;
+#X obj 409 203 metro 100;
 #X obj 408 285 vline~;
 #X obj 107 126 hsl 128 15 0 127 0 1 \$0-clock-clk-rate-s \$0-clock-clk-rate-r
-RATE 133 7 0 10 -262144 -1 -1 10405 1;
-#X floatatom 104 141 5 0 0 0 - - -, f 5;
+RATE 133 7 0 10 -262144 -1 -1 12000 1;
+#X floatatom 113 146 5 0 0 0 - - -, f 5;
 #X msg 110 213 127 \$1;
 #X obj 110 235 -;
 #X obj 110 258 / 127;
@@ -227,8 +227,13 @@ RATE 133 7 0 10 -262144 -1 -1 10405 1;
 #X connect 2 0 0 0;
 #X restore 593 308 pd parameter-nudging-system;
 #X obj 321 94 *~ -1;
+#X obj 509 291 s masterTempo;
+#X obj 507 257 pack bang 0;
+#X obj 516 194 t b i;
 #X connect 0 0 1 0;
+#X connect 0 0 42 0;
 #X connect 1 0 10 0;
+#X connect 1 0 41 0;
 #X connect 2 0 13 0;
 #X connect 3 0 5 0;
 #X connect 5 0 6 0;
@@ -258,4 +263,7 @@ RATE 133 7 0 10 -262144 -1 -1 10405 1;
 #X connect 35 0 34 0;
 #X connect 36 0 2 0;
 #X connect 39 0 16 0;
+#X connect 41 0 40 0;
+#X connect 42 0 41 0;
+#X connect 42 1 41 1;
 #X coords 0 -1 1 1 175 75 2 100 100;
