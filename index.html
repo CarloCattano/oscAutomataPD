@@ -5,7 +5,6 @@
 	<title>PD Web Panel</title>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/nexusui/dist/NexusUI.js"></script>
-	
 	 <body style="font-family:verdana;">
 	  <div id="myRack">
        <table style="color:Yellow;">
@@ -13,6 +12,7 @@
          <tr>
                 <td>Hats Volume<div id="slider1" style="width:200px;height:30px"></div></td>
                 <td>Kick Volume<div id="slider2" style="width:200px;height:30px"></div></td>
+				
          </tr>
 		 <tr>
 				<td>Sequencer Volume<div id="slider3" style="width:200px;height:30px"></div></td>
@@ -24,134 +24,145 @@
 		 </tr>
 		 <tr>
 				<td>SeqFLT<div id="seqFLT" style="width:200px;height:30px"></div></td>
+				<td>atRel<div id="atRel" style="width:200px;height:30px"></div></td>
+				
+		 </tr>
+		 <tr>
+		 <td>micDel<div id="micDel" style="width:200px;height:30px"></div></td>
+		 <td>masDel<div id="masDel" style="width:200px;height:30px"></div></td>
 		 </tr>
 		 
        </table>
 	   </div>
     </body>
 </head>
-
 <body>
-
 <script>
  const socket = io('http://192.168.0.4:8000');
  var myRack = new Nexus.Rack("#myRack");
 
-var hatsVol = new Nexus.Slider('#slider1',{
-  min: 0.0,
-  max: 1.0,
-  step: 0.01,
-  mode: 'absolute'
-});
-var kickVol = new Nexus.Slider('#slider2',{
-  min: 0.0,
-  max: 1.0,
-  step: 0.01,
-  mode: 'absolute'
-});
-var seqVol = new Nexus.Slider('#slider3',{
-  min: 0.0,
-  max: 1.0,
-  step: 0.01,
-  mode: 'absolute'
-});
-var micVol = new Nexus.Slider('#slider4',{
-  min: 0.0,
-  max: 1.0,
-  step: 0.01,
-  mode: 'absolute'
-});
-var multislider = new Nexus.Multislider('#multiS1',{
- 'size': [200,100],
- 'numberOfSliders': 8,
- 'min': 0,
- 'max': 1.0,
- 'step': 0.02
-});
+	var hatsVol = new Nexus.Slider('#slider1',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.01,
+	  mode: 'absolute'
+	});
+	var kickVol = new Nexus.Slider('#slider2',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.01,
+	  mode: 'absolute'
+	});
+	var seqVol = new Nexus.Slider('#slider3',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.01,
+	  mode: 'absolute'
+	});
+	var micVol = new Nexus.Slider('#slider4',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.01,
+	  mode: 'absolute'
+	});
+	var multislider = new Nexus.Multislider('#multiS1',{
+	 'size': [300,200],
+	 'numberOfSliders': 8,
+	 'min': 0,
+	 'max': 0.5,
+	 'step': 0.02
+	});
+	var seqGate = new Nexus.Button('#seqGate',{
+	  'size': [40,40],
+	  'mode': 'toggle',
+	  'state': false
+	});
+	var seqFLT = new Nexus.Slider('#seqFLT',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.001,
+	  mode: 'absolute'
+	});
+	var atRel = new Nexus.Slider('#atRel',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.001,
+	  mode: 'absolute'
+	});
+	var micDel = new Nexus.Slider('#micDel',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.001,
+	  mode: 'absolute'
+	});
+	var masDel = new Nexus.Slider('#masDel',{
+	  min: 0.0,
+	  max: 1.0,
+	  step: 0.001,
+	  mode: 'absolute'
+	});
 
-var seqGate = new Nexus.Button('#seqGate',{
-  'size': [40,40],
-  'mode': 'toggle',
-  'state': false
-});
-var seqFLT = new Nexus.Slider('#seqFLT',{
-  min: 0.0,
-  max: 1.0,
-  step: 0.001,
-  mode: 'absolute'
-});
 
+	hatsVol.on('change',function(v) {
+	  // do something with v!
+	  socket.emit('hatsVol', v);
+	});
 
-hatsVol.on('change',function(v) {
-  // do something with v!
-  socket.emit('hatsVol', v);
-});
+	kickVol.on('change',function(v) {
+	  socket.emit('kickVol', v);
+	});
 
-kickVol.on('change',function(v) {
-  socket.emit('kickVol', v);
-});
+	seqVol.on('change',function(v) {
+	  socket.emit('seqVol', v);
+	});
 
-seqVol.on('change',function(v) {
-  socket.emit('seqVol', v);
-});
+	micVol.on('change',function(v) {
+	  socket.emit('micVol', v);
+	});
 
-micVol.on('change',function(v) {
-  socket.emit('micVol', v);
-});
+	multislider.on('change',function(v) {
+	  socket.emit('seqNotes', v);
+	});
 
-multislider.on('change',function(v) {
-  socket.emit('seqNotes', v);
-});
+	seqFLT.on('change',function(v) {
+	  socket.emit('seqFLT', v);
+	});
 
-seqFLT.on('change',function(v) {
-  socket.emit('seqFLT', v);
-});
+	seqGate.on('change',function(v) {
+	  if(v ==true){
+	  socket.emit('seqGate', 1);
+	  }else {
+	  socket.emit('seqGate', 0);
+	  }
+	});
 
-seqGate.on('change',function(v) {
-  if(v ==true){
-  socket.emit('seqGate', 1);
-  }else {
-  socket.emit('seqGate', 0);
-  }
-});
-document.body.style.backgroundColor = "#000"
+	atRel.on('change' , function(v) {
+	socket.emit('atRel', v);
+	});
+	micDel.on('change' , function(v) {
+	socket.emit('micDel', v);
+	});
+	masDel.on('change' , function(v) {
+	socket.emit('masDel', v);
+	});
+	
+document.body.style.backgroundColor = "#000";
 
 function colorSetup(){
 
   var elements = [
-       hatsVol, kickVol, seqVol, micVol, multislider, seqFLT, seqGate
+       hatsVol, kickVol, seqVol, micVol, multislider, seqFLT, seqGate, atRel, micDel
   ];
   
   elements.forEach(function (item) {
-	    item.colorize("accent","#ff0");
-		item.colorize("fill","#444");
+	    item.colorize("accent","#ffff00");
+		item.colorize("fill","#9999");
+		item.colorize("border","#white");
 
 	});
- /*
-hatsVol.colorize("accent","#ff0");
-hatsVol.colorize("fill","#444");
-
-kickVol.colorize("accent","#ff0");
-kickVol.colorize("fill","#444");
-
-seqVol.colorize("accent","#ff0");
-seqVol.colorize("fill","#444");
-
-micVol.colorize("accent","#ff0");
-micVol.colorize("fill","#444");
-
-multislider.colorize("accent","#ff0");
-multislider.colorize("fill","#444");
-
-seqFLT.colorize("accent","#ff0");
-seqFLT.colorize("fill","#444");
-
-seqGate.colorize("accent","#ff0");
-seqGate.colorize("fill","#444");
-*/
 }
 
-colorSetup();
+	colorSetup();	
 </script>
 </body>
 </html>

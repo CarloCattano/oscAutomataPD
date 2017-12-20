@@ -25,7 +25,7 @@ var udp = dgram.createSocket('udp4', function(msg, rinfo) {
 io.on('connection', function (socket){
 console.log("user "+socket.id + " connected");
 	
-socket.on('kickVol',function(data){
+	socket.on('kickVol',function(data){
 			var kickVol = osc.toBuffer({
 			oscType: 'message',
 				address: '/kick/vol',
@@ -98,13 +98,49 @@ socket.on('kickVol',function(data){
 	socket.on('seqFLT',function(data){
 		var seqFLT = osc.toBuffer({
 			oscType: 'message',
-				address: '/seqFLT',
+				address: '/seq/flt',
 				args: [{
 					type: 'float',
 					value: data
 								}]
 			});
 		udp.send(seqFLT, 0 , seqFLT.length, 3333, "localhost");
+	});
+	socket.on('atRel',function(data){
+		var atRel = osc.toBuffer({
+			oscType: 'message',
+				address: '/seq/atRel',
+				args: [{
+					type: 'float',
+					value: data
+								}]
+			});
+		
+		udp.send(atRel, 0 , atRel.length, 3333, "localhost");
+	});
+	socket.on('micDel',function(data){
+		var micDel = osc.toBuffer({
+			oscType: 'message',
+				address: '/micDel',
+				args: [{
+					type: 'float',
+					value: data
+								}]
+			});
+		
+		udp.send(micDel, 0 , micDel.length, 3333, "localhost");
+	});
+	socket.on('masDel',function(data){
+		var masDel = osc.toBuffer({
+			oscType: 'message',
+				address: '/masDel',
+				args: [{
+					type: 'float',
+					value: data
+								}]
+			});
+		
+		udp.send(masDel, 0 , masDel.length, 3333, "localhost");
 	});
 	
 });
