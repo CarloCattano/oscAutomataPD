@@ -10,12 +10,12 @@
        <table style="color:Yellow;">
 	  
          <tr>
-                <td>Hats Volume<div id="slider1" style="width:200px;height:30px"></div></td>
-                <td>Kick Volume<div id="slider2" style="width:200px;height:30px"></div></td>
+                <td>Hats <div id="slider1" style="width:200px;height:30px"></div></td>
+                <td>Kick <div id="slider2" style="width:200px;height:30px"></div></td>
 				
          </tr>
 		 <tr>
-				<td>Sequencer Volume<div id="slider3" style="width:200px;height:30px"></div></td>
+				<td>SeqVolume<div id="slider3" style="width:200px;height:30px"></div></td>
 				<td>Mic Volume<div id="slider4" style="width:200px;height:30px"></div></td>
 		 </tr>
 		 <tr>
@@ -38,7 +38,7 @@
 </head>
 <body>
 <script>
- const socket = io('http://192.168.0.4:8000');
+ const socket = io('192.168.0.19:8000');
  var myRack = new Nexus.Rack("#myRack");
 
 	var hatsVol = new Nexus.Slider('#slider1',{
@@ -69,7 +69,7 @@
 	 'size': [300,200],
 	 'numberOfSliders': 8,
 	 'min': 0,
-	 'max': 0.5,
+	 'max': 0.6,
 	 'step': 0.02
 	});
 	var seqGate = new Nexus.Button('#seqGate',{
@@ -85,8 +85,9 @@
 	});
 	var atRel = new Nexus.Slider('#atRel',{
 	  min: 0.0,
-	  max: 1.0,
+	  max: 0.7,
 	  step: 0.001,
+	  exp: 0.92,
 	  mode: 'absolute'
 	});
 	var micDel = new Nexus.Slider('#micDel',{
