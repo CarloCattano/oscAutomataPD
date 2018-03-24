@@ -1,7 +1,7 @@
-#N canvas 150 22 1051 749 10;
+#N canvas 150 19 1051 718 10;
 #X obj 117 576 vline~;
 #X obj 153 147 vsl 15 96 1.27 127 1 1 \$0-ahr-release-s \$0-ahr-release-r
-R 4 -9 0 10 -262144 -1 -1 3500 1;
+R 4 -9 0 10 -262144 -1 -1 0 1;
 #X obj 123 147 vsl 15 96 1.27 127 1 1 \$0-ahr-attack-s \$0-ahr-attack-r
 A 4 -9 0 10 -262144 -1 -1 0 1;
 #X obj 117 480 f;
@@ -46,7 +46,7 @@ empty 0 -8 0 10 -262144 -1 -1 0;
 #X msg 117 554 1 \$1 \, 0 \$2 \$3;
 #X obj 117 531 pack f f f;
 #X obj 138 147 vsl 15 96 1.27 127 1 1 \$0-ahr-hold-s \$0-ahr-hold-r
-H 4 -9 0 10 -262144 -1 -1 200 1;
+H 4 -9 0 10 -262144 -1 -1 0 1;
 #X obj 411 378 / 127;
 #X obj 410 440 * 1999;
 #X obj 195 475 +;
@@ -428,6 +428,8 @@ H 4 -9 0 10 -262144 -1 -1 200 1;
 #X connect 14 0 15 0;
 #X connect 15 0 17 0;
 #X restore 560 434 pd parameter-nudging-system;
+#X obj 185 57 loadbang;
+#X msg 182 76 1.127;
 #X connect 0 0 57 0;
 #X connect 0 0 88 0;
 #X connect 0 0 88 1;
@@ -531,4 +533,6 @@ H 4 -9 0 10 -262144 -1 -1 200 1;
 #X connect 91 0 93 0;
 #X connect 93 0 90 0;
 #X connect 94 0 23 0;
+#X connect 97 0 98 0;
+#X connect 98 0 37 0;
 #X coords 0 -1 1 1 125 175 2 100 100;
