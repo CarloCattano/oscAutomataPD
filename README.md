@@ -15,7 +15,8 @@ you will need:
               (check pd -h for a detailed list of commands)
 
 -Then in another terminal : node app.js 
-  this will start the server .
+            this will start the server
+
 -Connect a device to the same WiFi network and browse to [yourPiIP:8000] you should see the UI and be able to control the patch.
   **Tested with firefox and chrome from android and iOS devices.
 
