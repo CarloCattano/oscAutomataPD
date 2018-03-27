@@ -10,19 +10,21 @@ you will need:
 - change line 41 on index.html and replace the ip with your pi IP : const socket = io('yourIP:8000');
 - To run the pd patch from terminal open a terminal and write the following commands.
   This command is for my own setup using external audio soundcard and 1 midi controller:
-        - pd -nogui -r 44100 -verbose -audioadddev MobilePre -audiobuf 32 -midiaddindev /dev/midi2 main.pd
-          **you should be fine with:  pd -nogui main.pd 
-              (check pd -h for a detailed list of commands)
+    - pd -nogui -r 44100 -verbose -audioadddev MobilePre -audiobuf 32 -midiaddindev /dev/midi2 main.pd
+    **you should be fine with:  pd -nogui main.pd 
+    (check pd -h for a detailed list of commands)
 
 -Then in another terminal : node app.js 
             this will start the server
 
--Connect a device to the same WiFi network and browse to [yourPiIP:8000] you should see the UI and be able to control the patch.
+-Connect a device to the same WiFi network and browse to [yourPiIP:8000] 
+  you should see the UI and be able to control the patch.
   **Tested with firefox and chrome from android and iOS devices.
 
 This is an open project and I encourage you to give me a hand if you can , since I have limited time and skills
 
 Current Bugs:
--Polyphonic synth ignores release....
--Arpegiator sliders dont work on mobile for some reason (blames nexusUI instead of his own lack of knowledge)
+-Polyphonic synth ignores release...
+-Arpegiator sliders dont work on mobile for some reason 
+  (blames nexusUI instead of his own lack of knowledge)
 -...
