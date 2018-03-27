@@ -18,3 +18,10 @@ you will need:
   this will start the server .
 -Connect a device to the same WiFi network and browse to [yourPiIP:8000] you should see the UI and be able to control the patch.
   **Tested with firefox and chrome from android and iOS devices.
+
+This is an open project and I encourage you to give me a hand if you can , since I have limited time and skills
+
+Current Bugs:
+-Polyphonic synth ignores release....
+-Arpegiator sliders dont work on mobile for some reason (blames nexusUI instead of his own lack of knowledge)
+-...
