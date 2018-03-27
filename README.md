@@ -1,7 +1,9 @@
 # oscAutomataPD
 Headless puredata patches running on a raspberry pi and controlled from any device browser :-)
 
-An experimental ongoing project to control puredata on a raspberry pi from any browser. You can use any device conected to the same network or creating your own acces point . ( I used https://github.com/billz/raspap-webgui wich is very easy to setup and usefull ) 
+An experimental ongoing project to control puredata on a raspberry pi from any browser. 
+You can use any device conected to the same network or creating your own acces point . 
+( I used https://github.com/billz/raspap-webgui wich is very easy to setup and usefull ) 
 
 you will need:
 - git clone https://github.com/CarloCattano/oscAutomataPD.git
