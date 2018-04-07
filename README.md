@@ -25,8 +25,17 @@ you will need:
 
 This is an open project and I encourage you to give me a hand if you can , since I have limited time and skills
 
+Currently :
+-Adding GPIO control to send digital control voltages out from the Pi pins , controled from pd . Using PDWiringPi
+https://github.com/garthz/pdwiringPi (done)
+-Adding Abl_link~ Ableton Link to Syncronize with other LINK enabled devices on a network with puredata. (done)
+-Now using RaspAp to create an independent Wifi-Hotspot from the Pi to Acces LINK and UI control  (done)
+https://github.com/billz/raspap-webgui
+
+
 Current Bugs:
--Polyphonic synth ignores release...
 -Arpegiator sliders dont work on mobile for some reason 
   (blames nexusUI instead of his own lack of knowledge)
 -...
+
+Im using the excelent Automatonism modules for puredata . https://www.automatonism.com/the-software/  An amazing resource of well done abstractions with a modular approach to get sounding in no time.
