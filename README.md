@@ -5,18 +5,19 @@ An experimental ongoing project to control puredata on a raspberry pi from any b
 You can use any device conected to the same network or creating your own acces point . 
 ( I used https://github.com/billz/raspap-webgui wich is very easy to setup and usefull ) 
 
-### you will need to:
+### install:
+```
 git clone https://github.com/CarloCattano/oscAutomataPD.git
-
 cd oscAutomataPD
-
 npm install socket.io nexusui express http dgram osc-min
+```
 
 change line 41 on index.html and REPLACE the IP "const socket = io('yourIpHere:8000');"
 
 To run the pd patch from terminal open a terminal and write the following commands.
-
+```
 pd -nogui -r 44100 -verbose -audiobuf 32  main.pd
+```
 
 (check pd -h for a detailed list of commands)
 
