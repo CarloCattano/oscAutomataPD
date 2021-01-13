@@ -17,7 +17,16 @@
   },
   "homepage": "https://github.com/CarloCattano/oscAutomataPD#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dgram": "^1.0.1",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "nexusui": "^2.1.6",
     "node-osc": "^2.1.0",
-    "osc": "^2.2.0"
+    "osc": "^2.2.0",
+    "osc-min": "^1.1.2",
+    "socket.io": "^3.0.5"
   }
 }

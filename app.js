@@ -1,6 +1,11 @@
-var express = require('express');  
-var app = express();  
-var server = require('http').createServer(app);  
+const fs = require('fs');
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./cert.pem');
+const express = require('express');
+const https = require('https'); // https required 
+const app = express();
+const server = https.createServer({key: key, cert: cert }, app);
+
 var io = require('socket.io')(server);
 var osc = require('osc-min'),
     dgram = require('dgram'),
@@ -8,11 +13,13 @@ var osc = require('osc-min'),
 
 ////////////////////////////////////////////////////////////////////////
 server.listen(8000);
+console.log("SERVER LISTENING ON port 8000");
+console.log("\n ------ \n sending osc on 3333\n");
+app.use('/scripts', express.static(__dirname + '/node_modules/'));
+app.use(express.static(__dirname + '/public'));
 
-app.use(express.static(__dirname + '/node_modules'));  
-app.use(express.static(__dirname + '/public')); 
 app.get('/', function(req, res,next) {  
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 app.use(express.static('public'));
 ////////////////////////////////////////////////////////	

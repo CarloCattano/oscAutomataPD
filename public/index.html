@@ -3,12 +3,12 @@
 <head >
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>PD Web Panel</title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/nexusui/dist/NexusUI.js"></script>
-	 <body style="font-family:verdana;">
-	  <div id="myRack">
+	<script type="text/javascript" src="scripts/socket.io/client-dist/socket.io.js"></script>
+	<script type="text/javascript" src="scripts/nexusui/dist/NexusUI.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<body style="font-family:verdana;">
+	<div id="myRack">
        <table style="color:Yellow;">
-	  
          <tr>
                 <td>Hats <div id="slider1" style="width:200px;height:30px"></div></td>
                 <td>Kick <div id="slider2" style="width:200px;height:30px"></div></td>
@@ -19,8 +19,8 @@
 				<td>Mic Volume<div id="slider4" style="width:200px;height:30px"></div></td>
 		 </tr>
 		 <tr>
-				<td>Seq Notes<div id="multiS1" style="width:400px;height:50px"></div></td>
-				<td> Gate<div id="seqGate" style="width:200px;height:30px"></div></td>
+				<td>Seq Notes<div id="multiS1"></div></td>
+				<td> Gate<div id="seqGate" ></div></td>
 		 </tr>
 		 <tr>
 				<td>SeqFLT<div id="seqFLT" style="width:200px;height:30px"></div></td>
@@ -38,7 +38,7 @@
 </head>
 <body>
 <script>
- const socket = io('192.168.0.19:8000');
+ const socket = io('192.168.178.20:8000');
  var myRack = new Nexus.Rack("#myRack");
 
 	var hatsVol = new Nexus.Slider('#slider1',{
@@ -149,6 +149,7 @@
 	
 document.body.style.backgroundColor = "#000";
 
+
 function colorSetup(){
 
   var elements = [
@@ -159,7 +160,6 @@ function colorSetup(){
 	    item.colorize("accent","#ffff00");
 		item.colorize("fill","#9999");
 		item.colorize("border","#white");
-
 	});
 }
 
